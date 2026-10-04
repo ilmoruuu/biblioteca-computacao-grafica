@@ -11,7 +11,7 @@ HEIGHT = 600
 
 canvas = Canvas(WIDTH, HEIGHT)
 
-canvas.pixel(400, 300, 255, 0, 0)
+canvas.line(100, 100, 700, 100, 255, 0, 0)
 
 
 sdl2.ext.init()
