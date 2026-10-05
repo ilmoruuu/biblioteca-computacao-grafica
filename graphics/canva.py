@@ -194,6 +194,24 @@ class Canvas:
         self.framebuffer[self.byte_index + 1] = green
         self.framebuffer[self.byte_index + 2] = blue
         self.framebuffer[self.byte_index + 3] = 255
+        
+    def compute_out_code(self, x, y):
+
+        code = 0
+
+        if x < 0:
+            code |= 1
+
+        elif x >= self.width:
+            code |= 2
+
+        if y < 0:
+            code |= 8
+
+        elif y >= self.height:
+            code |= 4
+
+        return code
 
     def clip_line(self, x1, y1, x2, y2):
 
