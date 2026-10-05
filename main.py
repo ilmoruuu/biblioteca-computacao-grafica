@@ -11,17 +11,6 @@ HEIGHT = 600
 
 canvas = Canvas(WIDTH, HEIGHT)
 
-canvas.polygon_filled(
-    [
-        (100, 100),
-        (300, 80),
-        (500, 200),
-        (400, 400),
-        (150, 350)
-    ],
-    0, 255, 0
-)
-
 
 sdl2.ext.init()
 

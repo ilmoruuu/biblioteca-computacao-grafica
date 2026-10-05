@@ -1,3 +1,5 @@
+import math
+
 class Canvas:
 
     def __init__(self, width, height):
@@ -5,6 +7,59 @@ class Canvas:
         self.height = height
 
         self.framebuffer = bytearray(width * height * 4)
+        
+    def translate(self, points, tx, ty):
+
+        translated = []
+
+        for x, y in points:
+
+            new_x = x + tx
+            new_y = y + ty
+
+            translated.append((new_x, new_y))
+
+        return translated
+    
+    def scale(self, points, sx, sy):
+
+        scaled = []
+
+        for x, y in points:
+
+            new_x = x * sx
+            new_y = y * sy
+
+            scaled.append((new_x, new_y))
+
+        return scaled
+    
+    def rotate(self, points, angle, pivot_x=0, pivot_y=0):
+
+        rotated = []
+
+        radians = math.radians(angle)
+
+        cos_angle = math.cos(radians)
+        sin_angle = math.sin(radians)
+
+        for x, y in points:
+
+            x -= pivot_x
+            y -= pivot_y
+
+            new_x = (x * cos_angle- y * sin_angle)
+
+            new_y = (x * sin_angle + y * cos_angle)
+
+            new_x += pivot_x
+            new_y += pivot_y
+
+            rotated.append(
+                (int(new_x), int(new_y))
+            )
+
+        return rotated
 
     def pixel(self, x, y, red, green, blue):
 
