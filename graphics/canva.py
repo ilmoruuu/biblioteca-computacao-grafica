@@ -60,6 +60,130 @@ class Canvas:
             )
 
         return rotated
+    
+    def multiply_matrices(self, a, b):
+
+        result = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]
+
+        for i in range(3):
+            for j in range(3):
+
+                for k in range(3):
+
+                    result[i][j] += a[i][k] * b[k][j]
+
+        return result
+    
+    def translation_matrix(self, tx, ty):
+
+        return [
+            [1, 0, tx],
+            [0, 1, ty],
+            [0, 0, 1]
+        ]
+        
+    def scale_matrix(self, sx, sy):
+
+        return [
+            [sx, 0, 0],
+            [0, sy, 0],
+            [0, 0, 1]
+        ]
+        
+    def rotation_matrix(self, angle):
+
+        radians = math.radians(angle)
+
+        cos_angle = math.cos(radians)
+        sin_angle = math.sin(radians)
+
+        return [
+            [cos_angle, -sin_angle, 0],
+            [sin_angle, cos_angle, 0],
+            [0, 0, 1]
+        ]
+        
+    
+    def multiply_matrices(self, a, b):
+
+        result = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ]
+
+        for i in range(3):
+            for j in range(3):
+
+                for k in range(3):
+
+                    result[i][j] += a[i][k] * b[k][j]
+
+        return result
+    
+    def translation_matrix(self, tx, ty):
+
+        return [
+            [1, 0, tx],
+            [0, 1, ty],
+            [0, 0, 1]
+        ]
+        
+    def scale_matrix(self, sx, sy):
+
+        return [
+            [sx, 0, 0],
+            [0, sy, 0],
+            [0, 0, 1]
+        ]
+        
+    def rotation_matrix(self, angle):
+
+        radians = math.radians(angle)
+
+        cos_angle = math.cos(radians)
+        sin_angle = math.sin(radians)
+
+        return [
+            [cos_angle, -sin_angle, 0],
+            [sin_angle, cos_angle, 0],
+            [0, 0, 1]
+        ]
+    
+    def transform_point(self, point, matrix):
+
+        x, y = point
+
+        new_x = (
+            matrix[0][0] * x +
+            matrix[0][1] * y +
+            matrix[0][2]
+        )
+
+        new_y = (
+            matrix[1][0] * x +
+            matrix[1][1] * y +
+            matrix[1][2]
+        )
+
+        return int(new_x), int(new_y)
+    
+    def transform_points(self, points, matrix):
+
+        transformed = []
+
+        for point in points:
+
+            transformed.append(
+                self.transform_point(point, matrix)
+            )
+
+        return transformed
+    
 
     def pixel(self, x, y, red, green, blue):
 
