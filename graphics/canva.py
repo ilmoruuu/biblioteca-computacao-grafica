@@ -94,3 +94,9 @@ class Canvas:
 
         self.line(x, y + height, x, y, red, green, blue)
         
+    def rectangle_filled(self, x, y, width, height, red, green, blue):
+
+        for current_y in range(y, y + height + 1):
+
+            for current_x in range(x, x + width + 1):
+                self.pixel(current_x,current_y, red, green, blue)
