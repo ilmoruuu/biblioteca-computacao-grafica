@@ -195,7 +195,101 @@ class Canvas:
         self.framebuffer[self.byte_index + 2] = blue
         self.framebuffer[self.byte_index + 3] = 255
 
+    def clip_line(self, x1, y1, x2, y2):
+
+        code1 = self.compute_out_code(x1, y1)
+        code2 = self.compute_out_code(x2, y2)
+
+        while True:
+
+            if code1 == 0 and code2 == 0:
+
+                return x1, y1, x2, y2
+
+            elif code1 & code2:
+
+                return None
+
+            else:
+
+                if code1 != 0:
+                    code_out = code1
+                else:
+                    code_out = code2
+
+                if code_out & 8:
+
+                    x = x1 + (
+                        (x2 - x1)
+                        * (0 - y1)
+                        / (y2 - y1)
+                    )
+
+                    y = 0
+
+                elif code_out & 4:
+
+                    x = x1 + (
+                        (x2 - x1)
+                        * (self.height - 1 - y1)
+                        / (y2 - y1)
+                    )
+
+                    y = self.height - 1
+
+                elif code_out & 2:
+
+                    y = y1 + (
+                        (y2 - y1)
+                        * (self.width - 1 - x1)
+                        / (x2 - x1)
+                    )
+
+                    x = self.width - 1
+
+                else:
+
+                    y = y1 + (
+                        (y2 - y1)
+                        * (0 - x1)
+                        / (x2 - x1)
+                    )
+
+                    x = 0
+
+                x = int(x)
+                y = int(y)
+
+                if code_out == code1:
+
+                    x1 = x
+                    y1 = y
+
+                    code1 = self.compute_out_code(
+                        x1, y1
+                    )
+
+                else:
+
+                    x2 = x
+                    y2 = y
+
+                    code2 = self.compute_out_code(
+                        x2, y2
+                    )
+
     def line(self, x1, y1, x2, y2, red, green, blue):
+        
+        
+        clipped = self.clip_line(
+            x1, y1,
+            x2, y2
+        )
+
+        if clipped is None:
+            return
+
+        x1, y1, x2, y2 = clipped
 
         dx = abs(x2 - x1)
         dy = abs(y2 - y1)
