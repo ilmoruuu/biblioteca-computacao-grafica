@@ -453,3 +453,46 @@ class Canvas:
         world_y = (self.height / 2 - y) / scale
 
         return world_x, world_y
+    
+    def line_antialiased(self, x1, y1, x2, y2, red, green, blue):
+
+        dx = x2 - x1
+        dy = y2 - y1
+
+        steps = max(abs(dx), abs(dy))
+
+        if steps == 0:
+            self.pixel(x1, y1, red, green, blue)
+            return
+
+        x_increment = dx / steps
+        y_increment = dy / steps
+
+        x = x1
+        y = y1
+
+        for _ in range(steps + 1):
+
+            x_floor = int(x)
+            y_floor = int(y)
+
+            fraction_x = x - x_floor
+            fraction_y = y - y_floor
+
+            intensity = 1 - min(
+                fraction_x,
+                fraction_y
+            )
+
+            r = int(red * intensity)
+            g = int(green * intensity)
+            b = int(blue * intensity)
+
+            self.pixel(
+                x_floor,
+                y_floor,
+                r, g, b
+            )
+
+            x += x_increment
+            y += y_increment
