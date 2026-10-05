@@ -11,10 +11,14 @@ HEIGHT = 600
 
 canvas = Canvas(WIDTH, HEIGHT)
 
-# canvas.triangle_filled(
-#     400, 100,
-#     200, 500,
-#     600, 500,
+# canvas.polygon(
+#     [
+#         (100, 100),
+#         (300, 80),
+#         (500, 200),
+#         (400, 400),
+#         (150, 350)
+#     ],
 #     255, 0, 0
 # )
 

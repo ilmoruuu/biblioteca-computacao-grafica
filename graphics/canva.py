@@ -100,3 +100,16 @@ class Canvas:
 
             for current_x in range(x, x + width + 1):
                 self.pixel(current_x,current_y, red, green, blue)
+                
+    def polygon(self, points, red, green, blue):
+
+        if len(points) < 3:
+            return
+
+        for i in range(len(points)):
+
+            x1, y1 = points[i]
+
+            x2, y2 = points[(i + 1) % len(points)]
+
+            self.line(x1, y1, x2, y2, red, green, blue)
