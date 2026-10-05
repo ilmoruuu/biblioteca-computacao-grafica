@@ -113,3 +113,50 @@ class Canvas:
             x2, y2 = points[(i + 1) % len(points)]
 
             self.line(x1, y1, x2, y2, red, green, blue)
+            
+    def polygon_filled(self, points, red, green, blue):
+
+        if len(points) < 3:
+            return
+
+        min_y = min(y for x, y in points)
+        max_y = max(y for x, y in points)
+
+        edges = []
+
+        for i in range(len(points)):
+
+            x1, y1 = points[i]
+            x2, y2 = points[(i + 1) % len(points)]
+
+            edges.append((x1, y1, x2, y2))
+
+        for y in range(min_y, max_y + 1):
+
+            intersections = []
+
+            for x1, y1, x2, y2 in edges:
+
+                if y1 == y2:
+                    continue
+
+                if min(y1, y2) <= y < max(y1, y2):
+
+                    x = x1 + (y - y1) * (x2 - x1) / (y2 - y1)
+
+                    intersections.append(int(x))
+
+            intersections.sort()
+
+
+            for i in range(0, len(intersections) - 1, 2):
+
+                x_start = intersections[i]
+                x_end = intersections[i + 1]
+
+                for x in range(x_start, x_end + 1):
+
+                    self.pixel(
+                        x, y,
+                        red, green, blue
+                    )
