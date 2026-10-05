@@ -83,3 +83,14 @@ class Canvas:
 
                 for x in range(x_start, x_end + 1):
                     self.pixel(x, y, red, green, blue)
+                    
+    def rectangle(self, x, y, width, height, red, green, blue):
+
+        self.line(x, y, x + width, y, red, green, blue)
+
+        self.line(x + width, y, x + width, y + height, red, green, blue)
+
+        self.line(x + width, y + height, x, y + height,red, green, blue)
+
+        self.line(x, y + height, x, y, red, green, blue)
+        
