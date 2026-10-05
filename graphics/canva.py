@@ -339,3 +339,23 @@ class Canvas:
                         x, y,
                         red, green, blue
                     )
+                    
+    def world_to_screen(self, x, y, scale=1):
+
+        screen_x = int(
+            self.width / 2 + x * scale
+        )
+
+        screen_y = int(
+            self.height / 2 - y * scale
+        )
+
+        return screen_x, screen_y
+    
+    def screen_to_world(self, x, y, scale=1):
+
+        world_x = (x - self.width / 2) / scale
+
+        world_y = (self.height / 2 - y) / scale
+
+        return world_x, world_y
