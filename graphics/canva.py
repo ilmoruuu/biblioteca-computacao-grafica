@@ -48,3 +48,38 @@ class Canvas:
         self.line(x1, y1, x2, y2, red, green, blue)
         self.line(x2, y2, x3, y3, red, green, blue)
         self.line(x3, y3, x1, y1, red, green, blue)
+        
+    def triangle_filled(self, x1, y1, x2, y2, x3, y3,red, green, blue):
+        min_y = min(y1, y2, y3)
+        max_y = max(y1, y2, y3)
+
+        edges = [
+            (x1, y1, x2, y2),
+            (x2, y2, x3, y3),
+            (x3, y3, x1, y1)
+        ]
+
+        for y in range(min_y, max_y + 1):
+
+            intersections = []
+
+            for xa, ya, xb, yb in edges:
+
+                if ya == yb:
+                    continue
+
+                if min(ya, yb) <= y < max(ya, yb):
+
+                    x = xa + (y - ya) * (xb - xa) / (yb - ya)
+
+                    intersections.append(int(x))
+
+            if len(intersections) >= 2:
+
+                intersections.sort()
+
+                x_start = intersections[0]
+                x_end = intersections[-1]
+
+                for x in range(x_start, x_end + 1):
+                    self.pixel(x, y, red, green, blue)

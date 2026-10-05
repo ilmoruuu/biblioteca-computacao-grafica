@@ -11,7 +11,12 @@ HEIGHT = 600
 
 canvas = Canvas(WIDTH, HEIGHT)
 
-canvas.line(100, 100, 700, 100, 255, 0, 0)
+# canvas.triangle_filled(
+#     400, 100,
+#     200, 500,
+#     600, 500,
+#     255, 0, 0
+# )
 
 
 sdl2.ext.init()
